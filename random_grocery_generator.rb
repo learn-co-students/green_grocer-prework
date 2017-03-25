@@ -1,3 +1,4 @@
+
 require_relative 'grocer'
 
 def items
@@ -55,3 +56,26 @@ coupons.each do |coupon|
 end
 
 puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
+
+def consolidate_cart(cart)
+	new_cart = {}
+	if cart != {}
+		cart.each do |item, attributes|
+			if new_cart.keys.include?(item.keys.first)
+				attributes[:count] += 1
+			else
+				new_cart[item.keys.first] = item[item.keys.first]
+				new_cart[item.keys.first][:count] = 1
+			end
+		end
+	end
+	cart = new_cart
+end
+
+def apply_coupons
+
+end
+
+def checkout
+
+end
