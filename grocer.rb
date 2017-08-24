@@ -1,5 +1,5 @@
 def consolidate_cart(cart)
-consolidated_cart = {}
+  consolidated_cart = {}
   cart.each do |item_type|
     item_type.each do |item, item_data|
       if !consolidated_cart.keys.include? item
