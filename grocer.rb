@@ -1,5 +1,3 @@
-require 'pry'
-
 def consolidate_cart(cart)
 consolidated_cart = {}
   cart.each do |item_type|
