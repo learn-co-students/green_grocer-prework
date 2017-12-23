@@ -1,25 +1,5 @@
 require "pry"
 
-cart = [
-{"AVOCADO" => {:price => 3.00, :clearance => true}},
-{"KALE" => {:price => 3.00, :clearance => false}},
-{"BLACK_BEANS" => {:price => 2.50, :clearance => false}},
-{"ALMONDS" => {:price => 9.00, :clearance => false}},
-{"TEMPEH" => {:price => 3.00, :clearance => true}},
-{"CHEESE" => {:price => 6.50, :clearance => false}},
-{"BEER" => {:price => 13.00, :clearance => false}},
-{"PEANUTBUTTER" => {:price => 3.00, :clearance => true}},
-{"BEETS" => {:price => 2.50, :clearance => false}},
-{"AVOCADO" => {:price => 3.00, :clearance => true}},
-{"SOY MILK" => {:price => 4.50, :clearance => true}}
-]
-
-coupons = [
-{:item => "AVOCADO", :num => 2, :cost => 5.00},
-{:item => "BEER", :num => 2, :cost => 20.00},
-{:item => "CHEESE", :num => 3, :cost => 15.00}
-]
-
 
 def consolidate_cart(array)
     count = Hash.new(0)
@@ -38,38 +18,69 @@ end
 
 
 def apply_coupons(cart, coupons)
-    consolidated = consolidate_cart(cart)
+    result = {}
+    result = cart
+    coupon_count = Hash.new(0)
+    coupons.each do |coup|
+        coupon_count[coup] += 1
+        if result.keys.include?(coup[:item]) && result[coup[:item]][:count] >= coup[:num]
+            result[coup[:item] + " W/COUPON"] = {:price =>coup[:cost], :clearance => cart[coup[:item]][:clearance], :count => coupon_count.values[0]}
+            result[coup[:item]][:count] -= coup[:num]
+        end
+    end
+    result
 end
-
-
-
-coupons.each do |coupon|
-    consolidated[coupon[:item] + " W/COUPON"] = {:price => coupon[:cost], :clearance =>consolidated[coupon[:item]][:clearance], :count => consolidated[coupon[:item]][:count] - coupon[:num]}
-end
-consolidated
-
-
-
-apply_coupons(cart, coupons)
-
-#    cart.each do |items|
-#        items.each do |food, specs|
-#            cart_hash[food] = specs
-#
-#        end
-#    end
-#
-#
-#    coupons.each do |coupon|
-#        cart << {coupon[:item] + " W/COUPON" => {:price => coupon[:cost], :clearance =>cart_hash[coupon[:item]][:clearance], :count => cart_hash[coupon[:item]][:count] - coupon[:num]}}
-#    end
-#    cart
 
 
 def apply_clearance(cart)
-  # code here
+    result = {}
+    cart.each do |attr,value|
+        if value[:clearance] == true
+            discount_percent = value[:price] * 0.80
+            result[attr] = value
+            result[attr][:price] = discount_percent.round(2)
+        else
+            result[attr] = value
+        end
+    end
 end
 
 def checkout(cart, coupons)
-  # code here
+    item_price = 0
+    consolidated_cart = consolidate_cart(cart)
+    
+    applied_coupons = apply_coupons(consolidated_cart, coupons)
+    applied_clearance = apply_clearance(applied_coupons)
+    
+    applied_clearance.each do |attr, value|
+        if value[:count] > 0
+            value[:price] *= value[:count]
+            item_price += value[:price]
+        end
+    end
+    if item_price > 100
+        item_price * 0.90
+    else
+        item_price
+    end
 end
+
+
+#def apply_coupons(cart, coupons)
+#    result = {}
+#    cart.each do |attr, value|
+#        result[attr] = value
+#        coupon_count = Hash.new(0)
+#        coupons.each do |coup|
+#            coupon_count[coup] += 1
+#            if coup[:item] == attr
+#                result[attr + " W/COUPON"] = {:price =>coup[:cost], :clearance => value[:clearance], :count => coupon_count.values[0]}
+#                result[attr][:count] -= coup[:num]
+#                
+#            end
+#        end
+#    end
+#    result
+#end
+#
+
