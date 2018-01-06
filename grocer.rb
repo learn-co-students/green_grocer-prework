@@ -59,5 +59,21 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
-  # code here
+
+  consolidated = consolidate_cart(cart)
+  couponed = apply_coupons(consolidated,coupons)
+  couponed_clearance = apply_clearance(couponed)
+
+  total_cost = 0
+
+  couponed_clearance.each do |k,v|
+    total_cost += v[:price]
+  end
+
+  if total_cost > 100
+    float_total = total_cost * 0.9
+    return float_total.round(2)
+  else
+    return total_cost.round(2)
+  end
 end
