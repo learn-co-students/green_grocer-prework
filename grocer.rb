@@ -25,24 +25,23 @@ def apply_coupons(cart, coupons)
     return cart
   end
 
-  couponed_cart = Hash.new(0)
+  couponed_cart = cart
 
-  #go through each coupon: 1. Check if it's there. 2. Update the cart item. 3. Add couponed item. 4. Add to couponed cart.
+  #go through each coupon: 1. Check if it's there & meets min. 2. Update the cart item. 3. Add couponed item. 4. Add to couponed cart.
   coupons.each do |coupon|
-    #If there, update cart item
-    coupon_item = coupon[:item]
-    if cart.keys.include?(coupon_item)
-      #add couponed item and updated item to new cart
-      cart[coupon_item][:count] -= coupon[:num]
-      price = coupon[:cost]
-      clearance = cart[coupon_item][:clearance]
-      count = coupons.count(coupon)
-      couponed_cart["#{coupon_item} W/COUPON"] = {:price=> price, :clearance=> clearance, :count=> count}
-      couponed_cart[coupon_item] = cart[coupon_item]
-    else
-      couponed_cart = cart if couponed_cart == Hash.new(0)
-    end
-  end
+     #If there, update cart item
+     coupon_item = coupon[:item]
+     if couponed_cart.keys.include?(coupon_item)
+       #add couponed item and updated item to new cart
+       couponed_cart[coupon_item][:count] -= coupon[:num]
+       price = coupon[:cost]
+       clearance = cart[coupon_item][:clearance]
+       count = couponed_cart[coupon_item][:count]
+       couponed_cart["#{coupon_item} W/COUPON"] = {:price=> price, :clearance=> clearance, :count=> count}
+     else
+       couponed_cart
+     end
+   end
 
   couponed_cart
 end
