@@ -32,12 +32,12 @@ def apply_coupons(cart, coupons)
      #If there, update cart item
      coupon_item = coupon[:item]
      if couponed_cart.keys.include?(coupon_item) && coupon[:num] <= couponed_cart[coupon_item][:count]
-       #add couponed item and updated item to new cart
+       #add couponed item and update item to new cart
        count = (couponed_cart[coupon_item][:count]/coupon[:num]).floor
-       couponed_cart[coupon_item][:count] = (couponed_cart[coupon_item][:count] % coupon[:num])
        price = coupon[:cost]
        clearance = cart[coupon_item][:clearance]
        couponed_cart["#{coupon_item} W/COUPON"] = {:price=> price, :clearance=> clearance, :count=> count}
+       couponed_cart[coupon_item][:count] = (couponed_cart[coupon_item][:count] % coupon[:num])
      end
    end
 
