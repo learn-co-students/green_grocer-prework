@@ -52,7 +52,7 @@ def apply_clearance(cart)
   clearance_cart = cart
   cart.each do |k,v|
     if v[:clearance] == true
-      float_price = v[:price].to_f * 0.8
+      float_price = v[:price] * 0.8
       clearance_cart[k][:price] = float_price.round(2)
     end
   end
