@@ -41,7 +41,7 @@ def apply_coupons(cart, coupons)
       couponed_cart["#{coupon_item} W/COUPON"] = {:price=> price, :clearance=> clearance, :count=> count}
       couponed_cart[coupon_item] = cart[coupon_item]
     else
-      next
+      couponed_cart = cart if couponed_cart == Hash.new(0)
     end
   end
 
