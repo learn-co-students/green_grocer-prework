@@ -20,12 +20,12 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  couponed_cart = Hash.new(0)
-
   #check if coupons exist
   if coupons.length == 0
     return cart
   end
+
+  couponed_cart = Hash.new(0)
 
   #go through each coupon: 1. Check if it's there. 2. Update the cart item. 3. Add couponed item. 4. Add to couponed cart.
   coupons.each do |coupon|
@@ -37,7 +37,7 @@ def apply_coupons(cart, coupons)
       price = coupon[:cost]
       clearance = cart[coupon_item][:clearance]
       count ||= 0
-      count +=1
+      count += 1
       couponed_cart["#{coupon_item} W/COUPON"] = {:price=> price, :clearance=> clearance, :count=> count}
       couponed_cart[coupon_item] = cart[coupon_item]
     else
