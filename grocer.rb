@@ -32,8 +32,8 @@ def apply_coupons(cart, coupons)
     #If there, update cart item
     coupon_item = coupon[:item]
     if cart.keys.include?(coupon_item)
-      cart[coupon_item][:count] -= coupon[:num]
       #add couponed item and updated item to new cart
+      cart[coupon_item][:count] -= coupon[:num]
       price = coupon[:cost]
       clearance = cart[coupon_item][:clearance]
       count = coupons.count(coupon)
@@ -67,7 +67,8 @@ def checkout(cart, coupons)
   total_cost = 0
 
   couponed_clearance.each do |k,v|
-    total_cost += v[:price]
+    total_item_cost = v[:price] * v[:count]
+    total_cost += total_item_cost
   end
 
   if total_cost > 100
