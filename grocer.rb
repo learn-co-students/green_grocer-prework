@@ -27,7 +27,7 @@ def apply_coupons(cart, coupons)
     return cart
   end
 
-  #go through each coupon: 1. Check if it's there. 2. Update the cart item. 3. Add couponed item. 4. Create couponed cart.
+  #go through each coupon: 1. Check if it's there. 2. Update the cart item. 3. Add couponed item. 4. Add to couponed cart.
   coupons.each do |coupon|
     #If there, update cart item
     coupon_item = coupon[:item]
