@@ -1,4 +1,5 @@
 require "pry"
+
 def consolidate_cart(cart)
   hash = {}
   cart.each{|element|
@@ -57,12 +58,10 @@ def checkout(cart, coupons)
   # binding.pry
   cart = consolidate_cart(cart)
   if coupons != []
-    coupons.each{ |coupon|
-      cart = apply_coupons(cart, coupon)
-    }
+    cart = apply_coupons(cart, coupons)
   end
   cart = apply_clearance(cart)
-  # cart = consolidate_cart(cart)
+  cart = consolidate_cart([cart])
   total = 0
   cart.each { |prod, p_hash|
     total += p_hash[:price]
