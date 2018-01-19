@@ -17,14 +17,25 @@ end
 
 def apply_coupons(cart, coupons)
   # code here
+  array = []
   cart.each{ |prod, p_hash|
-    binding.pry
-    if prod == coupons[:item] && p_hash[:count] >= coupons[:num]
-      p_hash[:count] = p_hash[:count] % coupons[:num]
-      new_prod = prod + " W/COUPON"
-      cart[new_prod] = {price: coupons[:cost], clearance: p_hash[:clearance], count: p_hash[:count] / coupons[:num]}
-    end
+    coupons.each {|coupon|
+      # binding.pry
+      if prod == coupon[:item] && p_hash[:count] >= coupon[:num]
+        array << prod + " W/COUPON"
+        array << coupon[:cost]
+        array << p_hash[:clearance]
+        array << p_hash[:count] / coupon[:num]
+        p_hash[:count] = p_hash[:count] % coupon[:num]
+        # new_prod = prod + " W/COUPON"
+        # cart[new_prod] = {price: coupon[:cost], clearance: p_hash[:clearance], count: p_hash[:count] / coupon[:num]}
+      end
+    }
   }
+  until array == []
+    cart[array[0]] = {price: array[1], clearance: array[2], count: array[3]}
+    array.shift(4)
+  end
   cart
 end
 
