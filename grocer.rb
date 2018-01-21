@@ -57,18 +57,35 @@ end
 def checkout(cart, coupons)
   # binding.pry
   cart = consolidate_cart(cart)
-  if coupons != []
-    cart = apply_coupons(cart, coupons)
-  end
+  cart = apply_coupons(cart, coupons)
   cart = apply_clearance(cart)
-  cart = consolidate_cart([cart])
   total = 0
   cart.each { |prod, p_hash|
-    total += p_hash[:price]
+    total += p_hash[:price]*p_hash[:count]
   }
-  # binding.pry
   if total > 100
     total = (total*0.9).round(2)
   end
   total
 end
+
+
+#
+# def checkout(cart, coupons)
+#   # binding.pry
+#   cart = consolidate_cart(cart)
+#   if coupons != []
+#     cart = apply_coupons(cart, coupons)
+#   end
+#   cart = apply_clearance(cart)
+#   cart = consolidate_cart([cart])
+#   total = 0
+#   cart.each { |prod, p_hash|
+#     total += p_hash[:price]
+#   }
+#   # binding.pry
+#   if total > 100
+#     total = (total*0.9).round(2)
+#   end
+#   total
+# end
