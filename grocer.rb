@@ -1,13 +1,3 @@
-cart = [{
-  "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
-  "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
-}]
-
-coupon = [
-  {:item => "AVOCADO", :num => 2, :cost => 5.00},
-  {:item => "AVOCADO", :num => 2, :cost => 5.00}
-]
-
 def consolidate_cart(cart)
   return_hash = {}
   counter = 0
