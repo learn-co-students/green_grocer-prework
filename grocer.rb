@@ -21,9 +21,16 @@ def apply_coupons(cart, coupons)
     end
     coupons.each do |coupon|
       if coupon[:item] == food && coupon[:num] <= properties[:count]
-        return_hash["#{food} W/COUPON"] = {:price => coupon[:cost], :clearance => properties[:clearance], :count => 1}
-        return_hash[food] = {:price => properties[:price], :clearance => properties[:clearance], :count => (properties[:count] - coupon[:num])}
-        properties[:count] = (properties[:count] - coupon[:num])
+        if return_hash["#{food} W/COUPON"] == nil
+          return_hash["#{food} W/COUPON"] = {:price => coupon[:cost], :clearance => properties[:clearance], :count => 1}
+          properties[:count] = (properties[:count] - coupon[:num])
+        else
+          return_hash["#{food} W/COUPON"][:count] +=1
+          properties[:count] = (properties[:count] - coupon[:num])
+        end
+        #return_hash[food] = {:price => properties[:price], :clearance => properties[:clearance], :count => (properties[:count] - coupon[:num])}
+        return_hash[food] = {:price => properties[:price], :clearance => properties[:clearance], :count => properties[:count]}
+
       else
         return_hash[food] = properties
       end
@@ -36,7 +43,7 @@ def apply_clearance(cart)
   return_hash = {}
   cart.each do |food, properties|
     if properties[:clearance] == true
-      return_hash[food] = {:price => (properties[:price] * 0.80).round(2), :clearance => properties[:clearance], :count => properties[:count]}
+      return_hash[food] = {:price => (properties[:price] * 0.80).round(5), :clearance => properties[:clearance], :count => properties[:count]}
     else
       return_hash[food] = properties
     end
@@ -47,10 +54,12 @@ end
 def checkout(cart, coupons)
 
   iterated_cart = apply_clearance(apply_coupons(consolidate_cart(cart), coupons))
-
+  puts iterated_cart
   cart_total = 0.00
   iterated_cart.each do |food, properties|
-    cart_total += properties[:price]
+    if properties[:count] > 0
+      cart_total += (properties[:count] * properties[:price]).to_f
+    end
   end
 
   if cart_total > 100.00
