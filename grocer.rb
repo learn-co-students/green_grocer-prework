@@ -16,11 +16,14 @@ end
 def apply_coupons(cart, coupons)
   return_hash = {}
   cart.each do |food, properties|
+    if coupons == []
+      return_hash[food] = properties
+    end
     coupons.each do |coupon|
       if coupon[:item] == food && coupon[:num] <= properties[:count]
-        #properties[:count] = properties[:count] - coupon[:num]
         return_hash["#{food} W/COUPON"] = {:price => coupon[:cost], :clearance => properties[:clearance], :count => 1}
         return_hash[food] = {:price => properties[:price], :clearance => properties[:clearance], :count => (properties[:count] - coupon[:num])}
+        properties[:count] = (properties[:count] - coupon[:num])
       else
         return_hash[food] = properties
       end
@@ -42,18 +45,17 @@ def apply_clearance(cart)
 end
 
 def checkout(cart, coupons)
-  consolidate_cart(cart)
-  apply_coupons(cart, coupons)
-  apply_clearance(cart)
+
+  iterated_cart = apply_clearance(apply_coupons(consolidate_cart(cart), coupons))
 
   cart_total = 0.00
-  cart.each do |food, properties|
+  iterated_cart.each do |food, properties|
     cart_total += properties[:price]
   end
 
   if cart_total > 100.00
     cart_total = cart_total * 0.90
   end
-  
+
   cart_total
 end
