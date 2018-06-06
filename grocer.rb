@@ -1,3 +1,5 @@
+require 'pry'
+
 def consolidate_cart(cart)
   output_hash = {}
   
@@ -15,20 +17,30 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  cart.map do |cart_item, details|
-    puts coupons
-    puts "NAMEEEE: #{coupons["num".to_sym]} Extra text"
-    if coupons[:item] == cart_item
-      coupon_count = coupons[:num] > cart_item[:count] ? cart_item[:count] : coupons[:num]
-      cart["#{cart_item} W/COUPON"] = {
-        price: coupons[:cost],
-        clearance: true,
-        count: coupon_count
-      }
+  puts "====================test================================"
+#   output_hash = cart
+  
+#   coupons.each do |coupon| 
+#     puts coupon
+#     cart.each do |cart_item, details|
       
-      cart_item[:count] -= coupon_count
-    end
-  end
+#       if coupon[:item] == cart_item
+#         coupon_count = coupon[:num] > details[:count] ? details[:count] : coupon[:num]
+#         output_hash["#{cart_item} W/COUPON"] = {
+#           price: coupon[:cost],
+#           clearance: true,
+#           count: coupon_count
+#         }
+#         output_hash[cart_item][:count] -= coupon_count
+#       end
+#     end
+#   end
+  
+#   output_hash
+end
+
+def apply_coupons(cart, coupons)
+  
 end
 
 def apply_clearance(cart)
