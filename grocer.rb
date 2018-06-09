@@ -55,13 +55,3 @@ def checkout(cart, coupons)
   end
   cart_total
 end
-
-
-cart = [{"BEER" => {:price => 13.00, :clearance => false}},
-  {"BEER" => {:price => 13.00, :clearance => false}},
-  {"BEER" => {:price => 13.00, :clearance => false}}
-]
-
-coupons = [{:item => "BEER", :num => 2, :cost => 20.00}, {:item => "BEER", :num => 2, :cost => 20.00}]
-
-checkout(cart, coupons)
