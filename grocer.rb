@@ -20,27 +20,26 @@ end
 def apply_coupons(cart, coupons)
   # code here
   coupon_cart = cart
-  # binding.pry
   coupons.each do |coupon|
-    if cart.has_key?(coupon[:item])
-      coupon_cart["#{coupon[:item]} W/COUPON"] = {}
-      coupon_cart["#{coupon[:item]} W/COUPON"][:price] = coupon[:cost]
-      coupon_cart["#{coupon[:item]} W/COUPON"][:clearance] = cart[coupon[:item]][:clearance]
-      coupon_cart["#{coupon[:item]} W/COUPON"][:count] = 0
-        binding.pry
+   item = coupon[:item]
+    if cart.has_key?(item)
+                                 
 
-      
+      coupon_cart["#{item} W/COUPON"] = {}
+      coupon_cart["#{item} W/COUPON"][:price] = coupon[:cost]
+      coupon_cart["#{item} W/COUPON"][:clearance] = cart[item][:clearance]
+      coupon_cart["#{item} W/COUPON"][:count] = 0
+        # binding.pry
+        
+        
       until coupon[:num] == 0 
         # binding.pry
-        coupon_cart["#{coupon[:item]} W/COUPON"][:count] += 1
+        coupon_cart["#{item} W/COUPON"][:count] += 1
         coupon[:num] -= 1
       end 
-      # binding.pry
-
-     
-      
     end 
   end 
+  
   coupon_cart 
 end
 
