@@ -16,8 +16,10 @@ def consolidate_cart(cart)
             
           
         else  
+          binding.pry
           v[:count] = 1
-  
+          
+          food_item_key[food_item_value] = v
         end 
       
   #      cart_hash = cart_hash.uniq
