@@ -24,12 +24,12 @@ def consolidate_cart(cart)
 #     cart_hash = {food_item_key => {attribute_symbol => attribute_value, attribute_symbol => attribute_value, :count => food_item_frequency}}
     end 
   end 
-  cart_hash
+ # cart_hash
 end
 
 
 def apply_coupons(cart, coupons)
-  
+   
 end
 
 
