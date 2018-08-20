@@ -1,5 +1,5 @@
 require "pry"
-
+# each_with_object
 def consolidate_cart(cart)
   cart_hash = {}
   cart.each do |food_item_hash|
