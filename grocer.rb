@@ -7,7 +7,7 @@ def consolidate_cart(cart)
     food_item_hash.each do |food_item_key, attribute_hash|
       attribute_hash[:count] = food_item_frequency
 # attribute_hash.each do |attribute_symbol, attribute_value|
-        if cart_hash = {}
+        if cart_hash == {}
           cart_hash = {food_item_key => attribute_hash}
         else  cart_hash[food_item_key] = attribute_hash
         end 
