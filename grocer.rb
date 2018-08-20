@@ -12,7 +12,7 @@ def consolidate_cart(cart)
           cart_hash = {food_item_key => attribute_hash}
         else  cart_hash[food_item_key] = attribute_hash
         end 
-  binding.pry #  After 3 exits:   
+#  binding.pry #  After 3 exits:   
               #  food_item_key   properly returns    "AVOCADO"  ;  
               #   attribute_hash properly returns  {:price=>3.0, :clearance=>true, :count=>2}
               #  {food_item_key => attribute_hash} properly returns  {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}  ;    
@@ -21,6 +21,7 @@ def consolidate_cart(cart)
 #       cart_hash = cart_hash.uniq
 #     cart_hash = {food_item_key => {attribute_symbol => attribute_value, attribute_symbol => attribute_value, :count => food_item_frequency}}
     end 
+  binding.pry # After 3 exits, cart_hash IMproperly returns meremly {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2} . At this point,  cart_hash  should be returning a hash of 3 key/value pairs (including dupes, depending on the     cart     ).
   end 
   cart_hash
 end
