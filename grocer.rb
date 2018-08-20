@@ -18,8 +18,9 @@ def consolidate_cart(cart)
               #  {food_item_key => attribute_hash} properly returns  {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}}  ;    
               #    cart_hash[food_item_key]   properly returns   {:price=>3.0, :clearance=>true, :count=>2}    ;   and  
               # cart_hash properly returns {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2} .
-              #       cart_hash = cart_hash.uniq
-              #     cart_hash = {food_item_key => {attribute_symbol => attribute_value, attribute_symbol => attribute_value, :count => food_item_frequency}}
+  # cart_hash = cart_hash.uniq
+              #     cart_hash = {food_item_key => {attribute_symbol => attribute_value, 
+  # attribute_symbol => attribute_value, :count => food_item_frequency}}
     end 
           #  binding.pry # After 3 exits, cart_hash IMproperly returns merely 
               # {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2} . 
