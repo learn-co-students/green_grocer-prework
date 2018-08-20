@@ -6,7 +6,7 @@ def consolidate_cart(cart)
     food_item_frequency = cart.count(food_item_hash)
     food_item_hash.each do |food_item_key, attribute_hash|
       attribute_hash[:count] = food_item_frequency
- #     binding.pry # after exiting three times through the first cart in the tests, food_item_hash properly returns {"AVOCADO"=>{:price=>3.0, :clearance=>true, :count=>2}} .  The count properly registers as 2   (and, of course, attribute_hash properly returns {:price=>3.0, :clearance=>true, :count=>2}   ).
+      
 # attribute_hash.each do |attribute_symbol, attribute_value|
         if cart_hash = {}
           cart_hash = {food_item_key => attribute_hash}
