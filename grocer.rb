@@ -26,10 +26,11 @@ def apply_coupons(cart, coupons)
   coupons.each do |coupon_hash|
     final_hash = cart.collect do |food_item_key, attribute_hash|
       if cart[food_item_key] == coupon_hash[:item] 
-         cart[food_item_key][:count] = cart[food_item_key][:count] - coupons[:num]
-         cart[food_item_key" W/COUPON"] = {:price => coupons[:cost], :clearance => food_item_key[:clearance], :count => 1}
+         cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
+         cart[food_item_key" W/COUPON"] = {:price => coupon_hash[:cost], :clearance => food_item_key[:clearance], :count => 1}
       end
     end
+    final_hash 
   end 
   final_hash
 end
