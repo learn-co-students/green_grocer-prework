@@ -11,12 +11,9 @@ def consolidate_cart(cart)
           cart_hash = {food_item_key => attribute_hash}
         else  cart_hash[food_item_key] = attribute_hash
         end
-# cart_hash = cart_hash.uniq
-# cart_hash = {food_item_key => {attribute_symbol => attribute_value, attribute_symbol =>       attribute_value, :count => food_item_frequency}}
     end 
   end 
   cart_hash
-          #  binding.pry # Diddo last binding.pry above.
 end
 
 
