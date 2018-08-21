@@ -21,7 +21,7 @@ end
 def apply_coupons(cart, coupons)
 # cart is a {} 
 # coupons is an [] containing one hash or multiple hashes.
-#  final_hash = nil 
+  final_hash = nil 
 # binding.pry
   final_hash = coupons.collect do |coupon_hash|
     cart.collect do |food_item_key, attribute_hash|
