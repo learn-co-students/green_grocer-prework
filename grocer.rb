@@ -2,7 +2,6 @@ require "pry"
 # each_with_object
 
 def consolidate_cart(cart)
-# coupons is a hash within an array.
   cart_hash = {}
   cart.each do |food_item_hash|
     food_item_frequency = cart.count(food_item_hash)
@@ -20,16 +19,18 @@ end
 
 
 def apply_coupons(cart, coupons)
-  num_of_coupons = coupons.length 
+# cart is a {} 
+# coupons is an [] containing one hash or multiple hashes.
+final_hash = nil 
 binding.pry
-  cart.each do |food_item_key, attribute_hash|
-  coupon_applied_cart = nil 
-     if cart[food_item_key] == coupons[:item] 
-    coupon_applied_cart[food_item_key][:count] = cart[food_item_key][:count] - coupons[:num]
-    coupon_applied_cart[food_item_key" W/COUPON"] = {:price => coupons[:cost], :clearance => food_item_key[:clearance], :count => 1}
+  coupons.each do |coupon_hash|
+    final_hash = cart.collect do |food_item_key, attribute_hash|
+      if cart[food_item_key] == coupon_hash[:item] 
+         cart[food_item_key][:count] = cart[food_item_key][:count] - coupons[:num]
+         cart[food_item_key" W/COUPON"] = {:price => coupons[:cost], :clearance => food_item_key[:clearance], :count => 1}
+      end
     end
-  end
-  coupon_applied_cart
+  final_hash
 end
 
 
