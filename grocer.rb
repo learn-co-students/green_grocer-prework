@@ -18,23 +18,29 @@ def consolidate_cart(cart)
 end
 
 
-	
-Amelie Oller 9 MINUTES AGO
-Hey Omar :smile:
+def apply_coupons(cart, coupons)
+# cart is a {} 
+# coupons is an [] containing one {} or multiple {}es.
+  final_hash = nil 
 
-Amelie Oller 9 MINUTES AGO
-How is it going?
-Omar Gonzalez 9 MINUTES AGO
-Okay. A bit tired. Would like to resolve this method before going to bed.
+  coupons.each do |coupon_hash|
+    coupon_hash.each do |coupon_symbol, food_item_value|
+   
+      cart.each do |food_item_key, attribute_hash|
 
+        if food_item_key == food_item_value 
 
-Amelie Oller 8 MINUTES AGO
-Well, it is late, that makes sense :smile:
-
-Amelie Oller 8 MINUTES AGO
-alright, let's do it :smile:
-
-
+          cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
+# binding.pry 
+          cart[food_item_key + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
+ binding.pry 
+          final_hash = cart 
+        end 
+      end
+    end
+  end 
+  final_hash
+end
 
 
 def apply_clearance(cart)
