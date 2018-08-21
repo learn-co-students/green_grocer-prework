@@ -2,6 +2,7 @@ require "pry"
 # each_with_object
 
 def consolidate_cart(cart)
+# coupons is a hash within an array.
   cart_hash = {}
   cart.each do |food_item_hash|
     food_item_frequency = cart.count(food_item_hash)
