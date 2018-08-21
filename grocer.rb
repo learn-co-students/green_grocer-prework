@@ -24,10 +24,15 @@ def apply_coupons(cart, coupons)
   final_hash = nil 
 # binding.pry
   final_hash = coupons.collect do |coupon_hash|
-    cart.collect do |food_item_key, attribute_hash|
-      if cart[food_item_key] == coupon_hash[:item] 
-         cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
-         cart[food_item_key" W/COUPON"] = {:price => coupon_hash[:cost], :clearance => food_item_key[:clearance], :count => 1}
+    coupon_hash.collect do |coupon_symbol, food_item_value|
+# binding.pry    
+      cart.collect do |food_item_key, attribute_hash|
+# binding.pry 
+        if food_item_key == food_item_value 
+binding.pry
+          cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
+          cart[food_item_key" W/COUPON"] = {:price => coupon_hash[:cost], :clearance => food_item_key[:clearance], :count => 1}
+        end 
       end
     end
   end 
