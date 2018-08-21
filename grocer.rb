@@ -47,12 +47,20 @@ end
 def checkout(cart, coupons)
 # cart   is an [ { {} } ]
 # coupons   is  an  [{}]
+  total = 0 
   consolidated_cart = consolidate_cart(cart)
   couponed_cart = apply_coupons(consolidated_cart, coupons)
   cleared_cart = apply_clearance(couponed_cart)
-# binding.pry
-#  cleared_cart.each do |food_item_key, food_item_info_hash|
-    
+ # binding.pry
+  cleared_cart.each do |food_item_key, food_item_info_hash|
+     
+    total += food_item_info_hash[:price] * food_item_info_hash[:count]
+  end
+  total 
+  if total > 100.0 
+    total = total * 0.9
+  end
+  total 
 end
 
 
