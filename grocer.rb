@@ -24,8 +24,9 @@ def apply_coupons(cart, coupons)
   final_hash = nil 
   coupons.each do |coupon_hash|
     if cart.keys.include?(coupon_hash[:item]) 
+#      counter = coupon_hash.count(coupon_hash[:item])
       cart[coupon_hash[:item]][:count] = cart[coupon_hash[:item]][:count] - coupon_hash[:num]
-       cart[coupon_hash[:item] + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => cart[coupon_hash[:item]][:clearance], :count => 1}
+       cart[coupon_hash[:item] + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => cart[coupon_hash[:item]][:clearance], :count => counter}
     end 
   end 
   final_hash = cart 
