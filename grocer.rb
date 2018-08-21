@@ -19,7 +19,16 @@ end
 
 
 def apply_coupons(cart, coupons)
-  
+  num_of_coupons = coupons.length 
+binding.pry
+  cart.each do |food_item_key, attribute_hash|
+  coupon_applied_cart = nil 
+     if cart[food_item_key] == coupons[:item] 
+    coupon_applied_cart[food_item_key][:count] = cart[food_item_key][:count] - coupons[:num]
+    coupon_applied_cart[food_item_key" W/COUPON"] = {:price => coupons[:cost], :clearance => food_item_key[:clearance], :count => 1}
+    end
+  end
+  coupon_applied_cart
 end
 
 
