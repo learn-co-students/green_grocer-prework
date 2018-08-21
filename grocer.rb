@@ -20,18 +20,21 @@ end
 
 def apply_coupons(cart, coupons)
 # cart is a {} 
-# coupons is an [] containing one hash or multiple hashes.
+# coupons is an [] containing one {} or multiple {}es.
   final_hash = nil 
-# binding.pry
-  final_hash = coupons.collect do |coupon_hash|
-    coupon_hash.collect do |coupon_symbol, food_item_value|
-# binding.pry    
-      cart.collect do |food_item_key, attribute_hash|
-# binding.pry 
+
+  coupons.each do |coupon_hash|
+    coupon_hash.each do |coupon_symbol, food_item_value|
+   
+      cart.each do |food_item_key, attribute_hash|
+
         if food_item_key == food_item_value 
-binding.pry
+
           cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
-          cart[food_item_key" W/COUPON"] = {:price => coupon_hash[:cost], :clearance => food_item_key[:clearance], :count => 1}
+# binding.pry 
+          cart[food_item_key + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
+ binding.pry 
+          final_hash = cart 
         end 
       end
     end
