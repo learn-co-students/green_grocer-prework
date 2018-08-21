@@ -21,25 +21,33 @@ end
 def apply_coupons(cart, coupons)
 # cart is a {} 
 # coupons is an [] containing one {} or multiple {}es.
-  final_hash = nil 
-
+#  final_hash = nil 
   coupons.each do |coupon_hash|
-    coupon_hash.each do |coupon_symbol, food_item_value|
-   
-      cart.each do |food_item_key, attribute_hash|
-
-        if food_item_key == food_item_value 
-
-          cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
+    
+    if cart.keys.include?(coupon_hash[:item]) 
+      cart[coupon_hash[:item] + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => cart[coupon_hash[:item]][:clearance], :count => 1}
+       cart[[coupon_hash[:item]] = cart[[coupon_hash[:item]][:count] - coupon_hash[:num]
+    end 
+# binding.pry     
+    
+  #  coupon_hash.each do |coupon_symbol, food_item_value|
+   #   cart.each do |food_item_key, attribute_hash|
+# binding.pry 
+ #       if food_item_key == food_item_value 
+  #        cart[food_item_key" W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
+          
+# binding.pry
+#          cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
 #  binding.pry # Everything checks out here.
-          cart[food_item_key + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
- binding.pry # Can't pry here.
-          final_hash = cart 
+#          cart[food_item_key + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
+# binding.pry # Can't pry here.
+#          final_hash = cart# binding.pry
         end 
-      end
-    end
-  end
-  final_hash
+ #     end
+ #   end
+#  end
+#  final_hash
+ binding.pry
 end
 
 
