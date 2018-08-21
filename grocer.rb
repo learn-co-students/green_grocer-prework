@@ -21,18 +21,35 @@ end
 def apply_coupons(cart, coupons)
 # cart is a {} 
 # coupons is an [] containing one {} or multiple {}es.
-  final_hash = nil
-  counter = 0 
+#  final_hash = nil
+#  counter = 0 
   coupons.each do |coupon_hash|
 # binding.pry 
-    if cart.keys.include?(coupon_hash[:item])
-      counter += 1
-      cart[coupon_hash[:item]][:count] = cart[coupon_hash[:item]][:count] - coupon_hash[:num]
-      cart[coupon_hash[:item] + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => cart[coupon_hash[:item]][:clearance], :count => counter}
+    name = coupon_hash[:item]
+    if cart[name] && cart[name][:count] >= coupon_hash[:num]
+      if cart["#{name} W/COUPON"] 
+        cart["#{name} W/COUPON"][:count] += 1
+      else 
+        cart["#{name} W/COUPON"] = {:price => coupon_hash[:cost], :clearance => cart[name][:clearance], :count => 1}
+      end 
+  #  if cart.keys.include?(coupon_hash[:item])  # && coupon_hash[:item][:num] <=  cart[coupon_hash[:item]][:count]
+  #    binding.pry
+   #   counter += 1
+      cart[name][:count] -= coupon_hash[:num]
+   #   cart[coupon_hash[:item] + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => cart[coupon_hash[:item]][:clearance], :count => 1}
     end
   end 
-  final_hash = cart 
+  cart 
 end
+
+
+
+
+
+
+
+
+
 
 
 def apply_clearance(cart)
