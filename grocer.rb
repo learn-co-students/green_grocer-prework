@@ -30,6 +30,7 @@ binding.pry
          cart[food_item_key" W/COUPON"] = {:price => coupons[:cost], :clearance => food_item_key[:clearance], :count => 1}
       end
     end
+  end 
   final_hash
 end
 
