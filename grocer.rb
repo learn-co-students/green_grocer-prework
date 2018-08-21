@@ -31,7 +31,7 @@ def apply_coupons(cart, coupons)
         if food_item_key == food_item_value 
 
           cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
-# binding.pry 
+  binding.pry 
           cart[food_item_key + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
  binding.pry 
           final_hash = cart 
