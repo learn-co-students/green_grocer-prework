@@ -31,14 +31,14 @@ def apply_coupons(cart, coupons)
         if food_item_key == food_item_value 
 
           cart[food_item_key][:count] = cart[food_item_key][:count] - coupon_hash[:num]
-  binding.pry 
+#  binding.pry # Everything checks out here.
           cart[food_item_key + " W/COUPON"] = {:price => coupon_hash[:cost], :clearance => attribute_hash[:clearance], :count => 1}
- # binding.pry # Can't pry here.
+ binding.pry # Can't pry here.
           final_hash = cart 
         end 
       end
     end
-  end 
+  end
   final_hash
 end
 
