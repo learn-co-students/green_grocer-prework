@@ -29,7 +29,7 @@ def apply_coupons(cart, coupons)
     end 
   end 
   final_hash = cart 
- binding.pry
+# binding.pry
 end
 
 
