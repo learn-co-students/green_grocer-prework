@@ -45,5 +45,21 @@ end
 
 
 def checkout(cart, coupons)
-  
+# cart   is an [ { {} } ]
+# coupons   is  an  [{}]
+# binding.pry
+  consolidated_cart = consolidate_cart(cart)
+# binding.pry
+  couponed_cart = apply_coupons(consolidated_cart, coupons)
+  cleared_cart = apply_clearance(couponed_cart)
+ binding.pry   
 end
+
+
+
+
+
+
+
+
+
