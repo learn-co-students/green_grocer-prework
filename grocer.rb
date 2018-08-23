@@ -1,5 +1,14 @@
 def consolidate_cart(cart)
-  # code here
+  new_hash = {}
+  cart.each do |hash|
+
+    hash.each do |item, info|
+      info.each do |info2, answer|
+        new_hash[item][info2] = answer
+      end
+    end
+  end
+  puts new_hash
 end
 
 def apply_coupons(cart, coupons)
