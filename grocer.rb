@@ -26,10 +26,10 @@ def apply_coupons(cart, coupons)
 
 
               #cart has more than coupon applies for, leave leftovers in cart
-              puts "*****"
-              puts cart
-              puts coupon
-              puts "----"
+              # puts "*****"
+              # puts cart
+              # puts coupon
+              # puts "----"
               if cart[food][:count] >= coupon[:num]
                   cart[food][:count] -= coupon[:num]
                     # keep as 0
@@ -49,7 +49,7 @@ def apply_coupons(cart, coupons)
 
               end
               # less than means coupon doesnt apply
-              puts cart
+              # puts cart
           end
 
       end
@@ -59,8 +59,29 @@ end
 
 def apply_clearance(cart)
   # code here
+  cart.each do |food,prop|
+      if prop[:clearance]
+          cart[food][:price] = (0.8 * cart[food][:price]).round(2)
+      end
+  end
+  cart
+
 end
 
 def checkout(cart, coupons)
   # code here
+  cart = consolidate_cart(cart)
+  cart = apply_coupons(cart,coupons)
+  cart = apply_clearance(cart)
+  #total
+  total = 0
+  cart.each do |food,prop|
+      total += (prop[:count]*prop[:price])
+  end
+
+  if total > 100
+      total = (0.90 * total).round(2)
+  end
+  total
+
 end
