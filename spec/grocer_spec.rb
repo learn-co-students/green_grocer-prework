@@ -66,7 +66,7 @@ describe "Grocer" do
       end
 
       it "adds the count number to the property hash of couponed item" do
-        expect(@avocado_result["AVOCADO W/COUPON"][:count]).to eq(1)
+        expect(@avocado_result["AVOCADO W/COUPON"][:count]).to eq(2)
       end
 
       it "removes the number of discounted items from the original item's count" do
@@ -93,7 +93,7 @@ describe "Grocer" do
         expect(cheese_result["CHEESE"][:price]).to eq(6.50)
         expect(cheese_result["CHEESE"][:count]).to eq(2)
         expect(cheese_result["CHEESE W/COUPON"][:price]).to eq(15.00)
-        expect(cheese_result["CHEESE W/COUPON"][:count]).to eq(1)
+        expect(cheese_result["CHEESE W/COUPON"][:count]).to eq(2)
         expect(cheese_result["CHEESE W/COUPON"][:clearance]).to eq(false)
       end
 
@@ -123,10 +123,10 @@ describe "Grocer" do
         expect(multiple_coupons["CHEESE"][:price]).to eq(6.50)
         expect(multiple_coupons["AVOCADO"][:price]).to eq(3.00)
         expect(multiple_coupons["CHEESE W/COUPON"][:price]).to eq(15.00)
-        expect(multiple_coupons["CHEESE W/COUPON"][:count]).to eq(1)
+        expect(multiple_coupons["CHEESE W/COUPON"][:count]).to eq(2)
         expect(multiple_coupons["CHEESE W/COUPON"][:clearance]).to eq(false)
         expect(multiple_coupons["AVOCADO W/COUPON"][:price]).to eq(5.00)
-        expect(multiple_coupons["AVOCADO W/COUPON"][:count]).to eq(1)
+        expect(multiple_coupons["AVOCADO W/COUPON"][:count]).to eq(2)
         expect(multiple_coupons["AVOCADO W/COUPON"][:clearance]).to eq(true)
       end
 
