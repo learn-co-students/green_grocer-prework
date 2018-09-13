@@ -13,40 +13,37 @@ def consolidate_cart(cart)
   consolidated_hash
 end
 
- cart2 = {
-  "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
-  "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
-}
-coupon2 = [{:item => "CHEESE", :num => 2, :cost => 5.0}]
+
 def apply_coupons(cart, coupons)
-  # code here
-  couponed_cart = {}
-  cart.each do |cart_item|
-    coupons.each do |each_coupon|
-      if cart_item[0] == each_coupon[:item]
-        #binding.pry
-        cart_item[1][:count] = cart_item[1][:count] - each_coupon[:num]
-        
-        couponed_cart[cart_item[0]] = cart_item[1]
-        if couponed_cart["#{cart_item[0]} W/COUPON"] == nil
-          couponed_cart["#{cart_item[0]} W/COUPON"] = {
-            :price => each_coupon[:cost],
-            :clearance => cart_item[1][:clearance],
-            :count => 1
-          }
+  if coupons != []
+    # code here
+    couponed_cart = {}
+    cart.each do |cart_item|
+      coupons.each do |each_coupon|
+        if cart_item[0] == each_coupon[:item]
+          #binding.pry
+          cart_item[1][:count] = cart_item[1][:count] - each_coupon[:num]
+          
+          couponed_cart[cart_item[0]] = cart_item[1]
+          if couponed_cart["#{cart_item[0]} W/COUPON"] == nil
+            couponed_cart["#{cart_item[0]} W/COUPON"] = {
+              :price => each_coupon[:cost],
+              :clearance => cart_item[1][:clearance],
+              :count => 1
+            }
+          else
+            couponed_cart["#{cart_item[0]} W/COUPON"][:count] = couponed_cart["#{cart_item[0]} W/COUPON"][:count] + 1
+          end
         else
-          couponed_cart["#{cart_item[0]} W/COUPON"][:count] = couponed_cart["#{cart_item[0]} W/COUPON"][:count] + 1
+          couponed_cart[cart_item[0]] = cart_item[1]
         end
-      else
-        couponed_cart[cart_item[0]] = cart_item[1]
       end
     end
+    couponed_cart
+  else
+    cart
   end
-  binding.pry
-  couponed_cart
 end
-apply_coupons(cart2, coupon2)
-
 def apply_clearance(cart)
   # code here
 end
