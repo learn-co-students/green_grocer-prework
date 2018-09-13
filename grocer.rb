@@ -17,25 +17,32 @@ end
   "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
   "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
 }
-coupon2 = {:item => "AVOCADO", :num => 2, :cost => 5.0}
+coupon2 = [{:item => "CHEESE", :num => 2, :cost => 5.0}]
 def apply_coupons(cart, coupons)
   # code here
   couponed_cart = {}
   cart.each do |cart_item|
-    if cart_item[0] == coupons[:item]
-      cart_item[1][:count] = cart_item[1][:count] - coupons[:num]
-      
-      couponed_cart[cart_item[0]] = cart_item[1]
-      
-      couponed_cart["#{cart_item[0]} W/COUPON"] = {
-        :price => coupons[:cost],
-        :clearance => cart_item[1][:clearance],
-        :count => 1
-      }
-    else
-      couponed_cart[cart_item[0]] = cart_item[1]
+    coupons.each do |each_coupon|
+      if cart_item[0] == each_coupon[:item]
+        #binding.pry
+        cart_item[1][:count] = cart_item[1][:count] - each_coupon[:num]
+        
+        couponed_cart[cart_item[0]] = cart_item[1]
+        if couponed_cart["#{cart_item[0]} W/COUPON"] == nil
+          couponed_cart["#{cart_item[0]} W/COUPON"] = {
+            :price => each_coupon[:cost],
+            :clearance => cart_item[1][:clearance],
+            :count => 1
+          }
+        else
+          couponed_cart["#{cart_item[0]} W/COUPON"][:count] = couponed_cart["#{cart_item[0]} W/COUPON"][:count] + 1
+        end
+      else
+        couponed_cart[cart_item[0]] = cart_item[1]
+      end
     end
   end
+  binding.pry
   couponed_cart
 end
 apply_coupons(cart2, coupon2)
