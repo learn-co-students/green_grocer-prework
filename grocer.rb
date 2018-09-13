@@ -20,7 +20,7 @@ def apply_coupons(cart, coupons)
     couponed_cart = {}
     cart.each do |cart_item|
       coupons.each do |each_coupon|
-        if cart_item[0] == each_coupon[:item]
+        if cart_item[0] == each_coupon[:item] && cart_item[1][:count] - each_coupon[:num]>=0
           #binding.pry
           cart_item[1][:count] = cart_item[1][:count] - each_coupon[:num]
           
@@ -47,13 +47,30 @@ end
 
 def apply_clearance(cart)
   # code here
-  cart.collect do |cart_item|
+  cart.each do |cart_item|
     if cart_item[1][:clearance]== true
       cart_item[1][:price] = (cart_item[1][:price] * 0.8).round(2)
     end
   end
+  cart
 end
 
 def checkout(cart, coupons)
   # code here
+  consolidated_cart = consolidate_cart(cart)
+  couponed_items = apply_coupons(consolidated_cart, coupons)
+  clearanced_items = apply_clearance(couponed_items)
+  sum_arr = []
+  clearanced_items.each do |each_item|
+    sum_arr << each_item[1][:price] * each_item[1][:count]
+  end
+  tot_cost = 0
+  sum_arr.each do |each_cost|
+    tot_cost = tot_cost += each_cost
+  end
+  if tot_cost < 100
+    tot_cost
+  else
+    tot_cost * 0.9
+  end
 end
