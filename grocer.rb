@@ -1,3 +1,5 @@
+require "pry"
+
 def consolidate_cart(cart)
 new_hash = {}
 
@@ -15,23 +17,21 @@ end
 
 
 def apply_coupons(cart, coupons)
- counts = Hash.new(0)
-  coupons.each do  |name| 
-    counts[name[:item]] += 1 
-  end  
 
   coupons.each do |coup_name| 
-  if cart.keys.include?(coup_name[:item]) && cart[coup_name[:item]][:count] >= coup_name[:num]
-    new_name = "#{coup_name[:item]} W/COUPON"
-    cart[new_name] = {:price => coup_name[:cost], :clearance => cart[coup_name[:item]][:clearance], :count => counts[coup_name[:item]]}
-    
-      cart[coup_name[:item]][:count] = cart[coup_name[:item]][:count] - coup_name[:num]
-      new_name = ''
-      else
-    return cart
-    end
-   end  
- 
+  coupon_name = coup_name[:item]
+
+  if cart[coupon_name] && cart[coupon_name][:count] >= coup_name[:num]
+    if cart["#{coupon_name} W/COUPON"]
+        cart["#{coupon_name} W/COUPON"][:count] += 1 
+        else
+          cart["#{coupon_name} W/COUPON"] = {:price => coup_name[:cost], :count => 1}
+          cart["#{coupon_name} W/COUPON"][:clearance] = cart[coupon_name][:clearance]
+    end  
+        cart[coupon_name][:count] -= coup_name[:num]
+  end
+ end
+
 cart
 end
 
@@ -47,6 +47,7 @@ end
 
 
 def checkout(cart, coupons)
+
   consolidated = consolidate_cart(cart)
   coupons_applied = apply_coupons(consolidated, coupons)
   clearance_applied = apply_clearance(coupons_applied)
@@ -56,5 +57,8 @@ def checkout(cart, coupons)
     total += price_hash[:price] * price_hash[:count]
   end
   
-  total > 100 ? total * 0.9 : total
+  total = total * 0.9 if total > 100
+
+  total
+
 end
