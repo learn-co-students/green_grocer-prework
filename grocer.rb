@@ -1,4 +1,6 @@
+require 'pry'
 def consolidate_cart(cart)
+  binding.pry
   # code here
 end
 
