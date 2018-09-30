@@ -22,6 +22,10 @@ def apply_coupons(cart, coupons)
   # code here
 coupons.each do |coupon|
    //is the count required fot the coupon greter or equal to the number of //items in the cart. this is an if statement or dont run code
+   if cart[:count] >= coupon[:num]
+ 
+  else
+    break
    
     name = coupon[:item]
   #binding.pry
@@ -33,6 +37,12 @@ coupons.each do |coupon|
         
         
    //if adjusted the cart, subtract the cpunt from the cart by appropiate number 
+      if cart["#{name} W/COUPON"]
+       cart[:count] = cart[:count] - coupon[:num]
+       puts cart && cart["#{name} W/COUPON"
+        
+        
+        
 binding.pry
   end
   end
