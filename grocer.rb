@@ -58,7 +58,8 @@ def checkout(cart, coupons)
   consolidated_ = consolidate_cart(cart)
     cart.each do |hash|
       hash.each do |fruit, attributes|
-    total += cart[attributes][:price]
+   #binding.pry
+    total += attributes[:price]
 
   
 
