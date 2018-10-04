@@ -1,20 +1,18 @@
-cart = {
-  "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
-  "KALE" => {:price => 3.0, :clearance => true, :count => 3},
-}
-coupons = [{:item => "AVOCADO", :num => 2, :cost => 5.0}]
+cart = [{"BEETS"=>{:price=>2.5, :clearance=>false, :count=>1}}]
+coupons = []
+
 
 def consolidate_cart(cart)
   # code here
   new_hash = {}
-  count = 1
+  count = 0
   cart.each do |item|
     item.each do |key, value|
       if !new_hash.has_key?(key)
         new_hash[key] = value
-        new_hash[key][:count] = count
+        new_hash[key][:count] = 1
       else
-        new_hash[key][:count] = count+1
+        new_hash[key][:count] += 1
       end
     end
   end
@@ -43,13 +41,36 @@ def apply_coupons(cart, coupons)
   cart
 end
 
-
-
-
 def apply_clearance(cart)
   # code here
-end
+  
+  cart.each do |key, value|
+    
+    
+    if cart[key][:clearance]
+      cart[key][:price]-=  ('%.2f' % (cart[key][:price]*0.20)).to_f
+    
+    end
+  end
 
+  cart
+end
+require 'pry'
 def checkout(cart, coupons)
   # code here
+  cart = consolidate_cart(cart)
+  apply_coupons(cart, coupons)
+  apply_clearance(cart)
+  total = 0
+  cart.each do |key, valuehash|
+    total += (valuehash[:price]*valuehash[:count])
+  end
+
+  if total > 100
+    total -= total*0.1
+  end
+  total
 end
+# [{"BEETS"=>{:price=>2.5, :clearance=>false, :count=>1}}]
+
+# puts checkout(cart, coupons)
