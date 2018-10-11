@@ -20,45 +20,51 @@ end
 
 def apply_coupons(cart, coupons)
   coupon_hash = {}
-  if coupons == nil || coupons.empty?
-    return cart
-  end
 
+  cart.each do |item, details|
   coupons.each do |coupon|
-    cart.each do |item, details|
-      coupon_hash[item] = details
-      coupon_name = "#{item} W/COUPON"
-
-      if item == coupon[:item]
-        coupon_hash[item][:count] = (details[:count] - coupon[:num])
-
+    coupon_hash[item] = details
+    coupon_name = "#{item} W/COUPON"
+    if item == coupon[:item] && details[:count] >= coupon[:num]
+        details[:count] = (details[:count] - coupon[:num])
         if coupon_hash.include?(coupon_name)
           coupon_hash[coupon_name][:count]
         else
-
           coupon_hash[coupon_name] = {:price => coupon[:cost], :clearance =>  details[:clearance], :count => (details[:count] / coupon[:num]) +1 }
-
-
-
-end
-end
-end
+        end
+      end
+    end
+    coupon_hash[item] = details
   end
-
-  coupon_hash
-  # binding.pry
+coupon_hash
 end
 
 def apply_clearance(cart)
-  # code here
+  cart.each do |item, details|
+
+    if details[:clearance] == true
+      details[:price] = (details[:price] * 0.8).round(2)
+    else
+      details[:price] = details[:price]
+    end
+  end
+cart
 end
+
+
 
 def checkout(cart, coupons)
-  # code here
-end
-coupon = {:item => "AVOCADO", :num => 2, :cost => 5.0}
+  cart = consolidate_cart(cart)
+  cart = apply_coupons(cart, coupons)
+  cart = apply_clearance(cart)
 
-cart =  {
-  "AVOCADO" => {:price => 3.0, :clearance => true, :count => 3},
-  "KALE"    => {:price => 3.0, :clearance => false, :count => 1}
-}
+    total = 0
+  cart.each do |item, details|
+    total = total + (details[:price] * details[:count])
+  end
+if total > 100
+  total = total * 0.9
+
+end
+total
+end
