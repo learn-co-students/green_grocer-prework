@@ -53,14 +53,20 @@ end
 
 
 def checkout(cart, coupons)
-  # code here
+  # code her
   total = 0
   consolidated_ = consolidate_cart(cart)
+    coupons_ = apply_coupons(consolidated_, coupons)
+    apply_clearance_= apply_clearance(coupons_)
+#binding.pry
     cart.each do |hash|
       hash.each do |fruit, attributes|
-   #binding.pry
+   
     total += attributes[:price]
-
+    
+    
+    
+    
   
 
  end
