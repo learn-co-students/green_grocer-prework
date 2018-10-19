@@ -55,21 +55,24 @@ end
 def checkout(cart, coupons)
   # code her
   total = 0
-  consolidated_ = consolidate_cart(cart)
-    coupons_ = apply_coupons(consolidated_, coupons)
-    apply_clearance_= apply_clearance(coupons_)
-#binding.pry
-    cart.each do |hash|
-      hash.each do |fruit, attributes|
-   
-    total += attributes[:price]
+
+
+new_cart = apply_coupons(consolidate_cart(cart), coupons)
+  new_cart = apply_clearance(new_cart)
+
+
+    new_cart.each do |fruit, attributes|
+
+   total += attributes[:price] * attributes[:count]
     
-    
+    if  total > 100
+      total = total * 0.9
+   #binding.pry 
     
     
   
 
- end
+end 
 end
 total
  end
