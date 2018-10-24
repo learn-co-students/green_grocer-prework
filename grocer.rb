@@ -2,34 +2,24 @@ require 'pry'
 
 def consolidate_cart(cart)
   # cart is a list, but return value must be a hash (per the assign)
-  # create new cart
   new_cart = {}
   # consolidate the old cart into the new cart. For each product in the cart,
-
   cart.each do |product|
     product.each do |product_name, product_info|
-      # if the item is not in new_cart and item has count, add it to new_cart
-      if !new_cart.keys.include?(product_name) && !product_info[:count] === nil
-          new_cart[product_name] = product_info
-
       # if the item is not in new_cart but item does not have a count,
       # add it to new_cart and set count to 1
-      elsif !new_cart.keys.include?(product_name)
+      if !new_cart.keys.include?(product_name)
         new_cart[product_name] = product_info
         new_cart[product_name][:count] = 1
-
-      # if the item is in new_cart and item has count, increment by count
-      elsif !product_info[:count] === nil
-        new_cart[product.keys[0]][:count] += product_info[:count]
-
       # if item is in new_cart but item does not have a count, increment by 1
       else
         new_cart[product_name][:count] += 1
-
       end
     end
   end
   return new_cart
+  # note: cart count will also be updated for each entry, but new_cart
+  # will only have one entry per item, so the return value will be correct
 end
 
 def apply_coupons (cart, coupons)
@@ -93,14 +83,21 @@ end
 
 
 def checkout(cart, coupons)
-  consolidated_cart = consolidate_cart(cart)
-  couponed_cart = apply_coupons(consolidated_cart, coupons)
-  final_cart = apply_clearance(couponed_cart)
+  # call each of the functions defined in this file, in the correct order
+  new_cart = consolidate_cart(cart)
+  new_cart = apply_coupons(new_cart, coupons)
+  new_cart = apply_clearance(new_cart)
+
+  # then, set total to zero, then loop through final_cart and increment total
   total = 0
-  final_cart.each do |name, properties|
+  new_cart.each do |name, properties|
     total += properties[:price] * properties[:count]
   end
-  total = total * 0.9 if total > 100
+
+  # implement the special saving rule for when the cart is over $100
+  if total > 100
+    total = total * 0.9
+  end
   total
 end
 
