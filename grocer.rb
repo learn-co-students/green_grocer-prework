@@ -1,14 +1,13 @@
 require 'pry'
 def consolidate_cart(cart)
+  counter = 0
   cart_hash = {}
   cart.each do |element|
     element.each do |name, parameters|
         cart_hash[name] = parameters
-        cart_hash[name][:count] ||= 1
+        cart_hash[name][:count] ||= 0
           element.each do |count_name, count_parameters|
-            counter ||= 0
-            binding.pry
-            if cart_hash.keys[counter] == count_name
+            if name == count_name
               cart_hash[name][:count] += 1
             end
             counter += 1
