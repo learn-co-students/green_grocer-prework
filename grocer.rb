@@ -68,7 +68,7 @@ def checkout(cart, coupons)
   cart_step2 = apply_coupons(cart_step1, coupons)
   cart_step3 = apply_clearance(cart_step2)
   cart_step3.each do |item, parameters|
-    total =+ parameters[:price] * parameters[:count]
+    total += parameters[:price] * parameters[:count]
   end
   #binding.pry
   if total > 100
