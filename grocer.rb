@@ -1,6 +1,5 @@
 require 'pry'
 def consolidate_cart(cart)
-  counter = 0
   cart_hash = {}
   cart.each do |element|
     element.each do |name, parameters|
@@ -10,7 +9,6 @@ def consolidate_cart(cart)
             if name == count_name
               cart_hash[name][:count] += 1
             end
-            counter += 1
           end
     end
   end
