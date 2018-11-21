@@ -1,15 +1,26 @@
+require 'pry'
 def consolidate_cart(cart)
-  # code here
+  cart_hash = {}
+  cart.each do |element|
+    element.each do |item, parameters|
+      parameters.each do |parameter, value|
+        cart_hash[item] = {}
+        cart_hash[item][parameter] ||= value
+      end 
+    end
+  end 
+  binding.pry
+  cart_hash
 end
 
 def apply_coupons(cart, coupons)
-  # code here
+  
 end
 
 def apply_clearance(cart)
-  # code here
+  
 end
 
 def checkout(cart, coupons)
-  # code here
+  
 end
