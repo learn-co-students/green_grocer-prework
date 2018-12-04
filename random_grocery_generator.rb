@@ -1,3 +1,5 @@
+require 'pry'
+
 require_relative 'grocer'
 
 def items
@@ -55,3 +57,26 @@ coupons.each do |coupon|
 end
 
 puts "Your total is #{checkout(cart: cart, coupons: coupons)}"
+
+def consolidate_cart(cart)
+  hash ={}
+  binding.pry
+  cart.each do |item|
+    item.each do |key, item_hash|
+      hash[key] ||= item_hash
+      hash[key][:count] ||= 0
+      hash[key][:count] += 1
+    end
+  
+
+def apply_coupons(cart)
+end
+
+def apply_clearance(cart)
+end
+
+def checkout
+# 1. Apply coupon discounts if the proper number of items are present.
+# 2. Apply 20% discount if items are on clearance.
+# 3. If, after applying the coupon discounts and the clearance discounts, the cart's total is over $100, then apply a 10% discount.
+end
