@@ -1,3 +1,5 @@
+require "pry"
+
 def consolidate_cart(cart)
   count_h = {}
   cart.each do |a|
@@ -25,42 +27,57 @@ def consolidate_cart(cart)
 end
 
 def apply_coupons(cart, coupons)
-  discounted_h = {}
-  cart.each do |a, b|
-    b.each do |c, d|
-      coupons.each do |k, v|
-        if !discounted_h.key?(a)
-          if a != v
-            discounted_h[a] = b
-          elsif a == v
-            undiscounted_c = cart[a][:count] - coupons[:num]
-            discounted_h[a] =
-              {price: cart[a][:price],
-              clearance: cart[a][:clearance],
-              count: undiscounted_c}
-            discounted_h["#{a} W/COUPON"] =
-              {price: coupons[:cost],
-              clearance: cart[a][:clearance],
-              count: 1}
+  new_cart = {}
+  if coupons.length == 0
+    new_cart = cart
+  else
+    fun_hash = []
+    coupons.each do |x|
+      cart.each do |a, b|
+        new_cart[a] = b
+        if a == x[:item] && b[:count] >= x[:num]
+          w_coup = "#{a} W/COUPON"
+          if !fun_hash.include?(a)
+            fun_hash << a
+            new_cart[w_coup] = {}
+            new_cart[w_coup][:price] = x[:cost]
+            new_cart[w_coup][:clearance] = b[:clearance]
+            new_cart[w_coup][:count] = 1
+            b[:count] = ((b[:count] - x[:num]).to_i)
+          elsif fun_hash.include?(a)
+            new_cart[w_coup][:count] += 1
+            new_cart[a][:count] = ((b[:count] - x[:num]).to_i)
           end
         end
       end
     end
   end
-  discounted_h.each do |a, b|
-    b.each do |k, v|
-      if v == 0
-        discounted_h.reject! { |x| x == a }
-      end
-    end
-  end
-  discounted_h
+  cart = new_cart
+  cart
 end
 
+
 def apply_clearance(cart)
-  # code here
+  cart.each do |a, b|
+    if b[:clearance] == true
+      new_p = (b[:price] * 0.8).round(2)
+      b[:price] = new_p
+    end
+  end
+  cart
 end
 
 def checkout(cart, coupons)
-  # code here
+  cart = consolidate_cart(cart)
+  cart = apply_coupons(cart, coupons)
+  cart = apply_clearance(cart)
+  total = 0
+  cart.each do |a, b|
+    sub = b[:price] * b[:count]
+    total += sub
+  end
+  if total > 100
+    total *= 0.9
+  end
+  total
 end
