@@ -13,7 +13,7 @@ end
 
 def apply_coupons(cart, coupons)
   coupons.collect do |item_hash|
-    if cart.key?(item_hash[:item])
+    if cart.key?(item_hash[:item]) && cart[item_hash[:item]][:count] >= item_hash[:num]
       if cart["#{item_hash[:item]} W/COUPON"]
         cart["#{item_hash[:item]} W/COUPON"][:count] += 1
       else
@@ -26,23 +26,26 @@ def apply_coupons(cart, coupons)
   cart
 end
 
-class Numeric
-  def percent_of(n)
-    self.to_f / n.to_f * 100.0
-  end
-end
-
 def apply_clearance(cart)
-  cart.collect do |item, attributes|
+  cart.each do |_item, attributes|
     if attributes[:clearance] == true
-      attributes[:price] = ((attributes[:price] * (4.0 / 5.0)).round(2))
+      attributes[:price] = (attributes[:price] * (4.0 / 5.0)).round(2)
     end
-    binding.pry
-    cart
   end
-  
 end
 
 def checkout(cart, coupons)
-  # code here
+  total_price = []
+  consolidated = consolidate_cart(cart)
+  coupons_applied = apply_coupons(consolidated, coupons)
+  clearance_applied = apply_clearance(coupons_applied)
+  clearance_applied.each do |_product, attributes|
+    total_price << (attributes[:price] * attributes[:count])
+  end
+  if total_price.sum < 100
+    final_price = total_price.sum
+  else
+    final_price = (total_price.sum * (9.0 / 10.0)).round(2)
+  end
+  final_price
 end
