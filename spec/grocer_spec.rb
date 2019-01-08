@@ -87,7 +87,7 @@ describe "Grocer" do
         cart = Array.new(5, cheese)
         consolidated_cart = consolidate_cart(cart)
         cheese_coupon = find_coupon("CHEESE")
-
+# binding.pry
         cheese_result = apply_coupons(consolidated_cart, [cheese_coupon])
 
         expect(cheese_result["CHEESE"][:price]).to eq(6.50)
@@ -280,6 +280,7 @@ describe "Grocer" do
         beer = find_item('BEER')
         cart = Array.new(3, beer)
         coupons = [find_coupon("BEER")]
+        # binding.pry
         expect(checkout(cart, coupons)).to eq(33.00)
       end
 
@@ -288,7 +289,9 @@ describe "Grocer" do
         cart = Array.new(3, beer)
         beer_coupon = find_coupon("BEER")
         coupons = [beer_coupon, beer_coupon]
+        # binding.pry
         expect(checkout(cart, coupons)).to eq(33.00)
+
       end
     end
 
