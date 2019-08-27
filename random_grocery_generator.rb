@@ -1,5 +1,8 @@
 require_relative 'grocer'
 
+require "pry"
+
+# NOTE: order: a-h-h
 def items
 	[
 		{"AVOCADO" => {:price => 3.00, :clearance => true}},
