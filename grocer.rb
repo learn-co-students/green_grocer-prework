@@ -47,4 +47,5 @@ hash_cart = consolidate_cart(array)
 applied_coupons = apply_coupons(hash_cart, coupons)
 applied_discount = applied_clearance(applied_clearance)
 total = applied_discount.reduce(0) { |acc, (key,value)| acc += value[:price] * value[:count] }
+total > 100 ? total * 0.9 : total
 end
