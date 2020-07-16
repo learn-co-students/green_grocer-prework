@@ -1,0 +1,32 @@
+
+[1mFrom:[0m /home/jb5595/green_grocer-prework/grocer.rb @ line 45 Object#apply_coupons:
+
+    [1;34m20[0m: [32mdef[0m [1;34mapply_coupons[0m(cart, coupons)
+    [1;34m21[0m:   [1;34m# code here[0m
+    [1;34m22[0m:   coupon_cart = cart
+    [1;34m23[0m:   coupons.each [32mdo[0m |coupon|
+    [1;34m24[0m:    item = coupon[[33m:item[0m]
+    [1;34m25[0m:     [32mif[0m cart.has_key?(item)
+    [1;34m26[0m:       [32mif[0m cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m]
+    [1;34m27[0m: 
+    [1;34m28[0m:       coupon_cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m] += l
+    [1;34m29[0m:     [32melse[0m 
+    [1;34m30[0m:       coupon_cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m] = {}
+    [1;34m31[0m:       coupon_cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m][[33m:price[0m] = coupon[[33m:cost[0m]
+    [1;34m32[0m:       coupon_cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m][[33m:clearance[0m] = cart[item][[33m:clearance[0m]
+    [1;34m33[0m:       coupon_cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m][[33m:count[0m] = [1;34m0[0m
+    [1;34m34[0m:     [32mend[0m 
+    [1;34m35[0m:         [1;34m# binding.pry[0m
+    [1;34m36[0m:   
+    [1;34m37[0m:         [1;34m# binding.pry[0m
+    [1;34m38[0m:       [32muntil[0m coupon[[33m:num[0m] == [1;34m0[0m 
+    [1;34m39[0m:         [1;34m# binding.pry[0m
+    [1;34m40[0m:         coupon_cart[[31m[1;31m"[0m[31m#{item}[0m[31m W/COUPON[1;31m"[0m[31m[0m][[33m:count[0m] += [1;34m1[0m
+    [1;34m41[0m:         coupon[[33m:num[0m] -= [1;34m1[0m
+    [1;34m42[0m:       [32mend[0m 
+    [1;34m43[0m:     [32mend[0m 
+    [1;34m44[0m:   [32mend[0m 
+ => [1;34m45[0m:   binding.pry
+    [1;34m46[0m:   coupon_cart 
+    [1;34m47[0m: [32mend[0m
+
